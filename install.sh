@@ -36,7 +36,7 @@ for f in "${REQUIRED_FILES[@]}"; do
     exit 1
   fi
 done
-echo "✓ All required files are present."
+echo "✅ All required files are present."
 
 # ====== Begin Installation ======
 echo "==> Installing base packages"
@@ -83,7 +83,7 @@ openssl req -x509 -newkey rsa:4096 \
   -keyout /etc/nginx/nginx-selfsigned.key \
   -out /etc/nginx/nginx-selfsigned.crt \
   -days 365 -nodes \
-  -subj "/C=US/ST=State/L=City/O=Organization/OU=Unit/CN=${HOSTNAME}/emailAddress=admin@${HOSTNAME}"
+  -subj "/C=ID/ST=State/L=City/O=Organization/OU=Unit/CN=${HOSTNAME}/emailAddress=sp@${HOSTNAME}"
 
 echo "==> Installing Nginx configs"
 cat nginx-default.conf > /etc/nginx/conf.d/default.conf
@@ -103,7 +103,7 @@ echo "==> Installing Shibboleth configs"
 cat shibboleth2.xml > /etc/shibboleth/shibboleth2.xml
 cat attribute-map.xml > /etc/shibboleth/attribute-map.xml
 
-echo "==> (Optional) Reloading services"
+echo "==> Reloading services"
 if command -v systemctl >/dev/null 2>&1; then
   systemctl daemon-reload || true
   systemctl restart nginx || true
@@ -111,4 +111,4 @@ if command -v systemctl >/dev/null 2>&1; then
   systemctl restart shibd || true
 fi
 
-echo "=== Done. Shibboleth SP + Nginx setup steps completed. ==="
+echo "==> ✅ Installation complete!"
