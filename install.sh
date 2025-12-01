@@ -21,7 +21,6 @@ REQUIRED_FILES=(
   "nginx-ssl.conf"
   "shib_clear_headers"
   "shib_fastcgi_params"
-  "services.xml"
   "shibboleth.conf"
   "shibboleth2.xml"
 )
