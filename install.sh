@@ -94,6 +94,7 @@ openssl req -x509 -newkey rsa:4096 \
   -subj "/C=ID/ST=State/L=City/O=Organization/OU=Unit/CN=${HOSTNAME}/emailAddress=sp@${HOSTNAME}"
 
 echo "==> Installing Nginx configs"
+sed -i 's/^user[[:space:]]\+nginx;/user www-data;/' /etc/nginx/nginx.conf
 sed -i '1iload_module modules/ngx_http_headers_more_filter_module.so;' /etc/nginx/nginx.conf
 sed -i '2iload_module modules/ngx_http_shibboleth_module.so;' /etc/nginx/nginx.conf
 cat nginx-default.conf > /etc/nginx/conf.d/default.conf
