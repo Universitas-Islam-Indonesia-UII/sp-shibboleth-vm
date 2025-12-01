@@ -1,0 +1,7 @@
+more_clear_input_headers
+    Auth-Type
+    'Shib-*'
+    Remote-User
+    uid
+    displayName
+    mail;
