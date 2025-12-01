@@ -20,7 +20,7 @@ fi
 REQUIRED_FILES=(
   "attribute-map.xml"
   "nginx-default.conf"
-  "nginx-ssl.conf.template"
+  "nginx-ssl.conf"
   "shib_clear_headers"
   "shib_fastcgi_params"
   "shibboleth.conf"
@@ -96,7 +96,8 @@ echo "==> Installing Nginx configs"
 sed -i '1iload_module modules/ngx_http_headers_more_filter_module.so;' /etc/nginx/nginx.conf
 sed -i '2iload_module modules/ngx_http_shibboleth_module.so;' /etc/nginx/nginx.conf
 cat nginx-default.conf > /etc/nginx/conf.d/default.conf
-envsubst < nginx-ssl.conf.template > /etc/nginx/conf.d/ssl.conf
+cp nginx-ssl.conf /etc/nginx/conf.d/ssl.conf
+sed -i "s|HOSTNAME|${HOSTNAME}|" /etc/nginx/conf.d/ssl.conf
 
 echo "==> Installing Supervisor config for Shibboleth"
 cp shibboleth.conf /etc/supervisor/conf.d/shibboleth.conf
