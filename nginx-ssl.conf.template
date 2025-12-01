@@ -1,6 +1,6 @@
 server {
   listen              443 ssl default_server;
-  server_name         _;
+  server_name         ${HOSTNAME};
   ssl_certificate     nginx-selfsigned.crt;
   ssl_certificate_key nginx-selfsigned.key;
   ssl_protocols       TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;

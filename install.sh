@@ -96,7 +96,7 @@ echo "==> Installing Nginx configs"
 sed -i '1iload_module modules/ngx_http_headers_more_filter_module.so;' /etc/nginx/nginx.conf
 sed -i '2iload_module modules/ngx_http_shibboleth_module.so;' /etc/nginx/nginx.conf
 cat nginx-default.conf > /etc/nginx/conf.d/default.conf
-cp nginx-ssl.conf /etc/nginx/conf.d/ssl.conf
+envsubst < nginx-ssl.conf.template > /etc/nginx/conf.d/ssl.conf
 
 echo "==> Installing Supervisor config for Shibboleth"
 cp shibboleth.conf /etc/supervisor/conf.d/shibboleth.conf
@@ -110,7 +110,7 @@ wget --no-check-certificate "https://${IDP_HOSTNAME}/idp/shibboleth" \
 
 echo "==> Installing Shibboleth configs"
 cp /etc/shibboleth/attribute-map.xml /etc/shibboleth/attribute-map.xml.bak
-cat shibboleth2.xml > /etc/shibboleth/shibboleth2.xml
+envsubst < shibboleth2.xml.template > /etc/shibboleth/shibboleth2.xml
 cat attribute-map.xml > /etc/shibboleth/attribute-map.xml
 
 echo "==> Reloading services"
