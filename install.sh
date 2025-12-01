@@ -3,8 +3,10 @@
 # Shibboleth SP + Nginx install script (Ubuntu)
 # Steps based exactly on your provided list.
 # ==========================================================
+
 export HOSTNAME=""
 export IDP_HOSTNAME=""
+export NGINX_VERSION="1.28.0"
 
 set -euo pipefail
 
@@ -50,7 +52,7 @@ echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx
 
 echo "==> Installing Nginx, Supervisor, Shibboleth SP, PHP packages"
 apt update
-apt install -y nginx=1.28.0-1~noble supervisor shibboleth-sp-common shibboleth-sp-utils php php-fpm
+apt install -y nginx=${NGINX_VERSION}-1~noble supervisor shibboleth-sp-common shibboleth-sp-utils php php-fpm
 
 echo "==> Removing Apache if present"
 apt purge -y 'apache2*' || true
@@ -61,17 +63,17 @@ cd /tmp
 wget https://raw.githubusercontent.com/nginx/pkg-oss/refs/heads/master/build_module.sh
 chmod a+x build_module.sh
 
-echo "==> Building headers-more module for Nginx 1.28.0"
-yes "" | ./build_module.sh -v 1.28.1 https://github.com/openresty/headers-more-nginx-module.git
+echo "==> Building headers-more module for Nginx ${NGINX_VERSION}"
+yes "" | ./build_module.sh -v ${NGINX_VERSION} https://github.com/openresty/headers-more-nginx-module.git
 
 echo "==> Installing headers-more deb package"
-dpkg -i ./build-module-artifacts/nginx-module-headersmore_1.28.0+1.0-1~noble_amd64.deb
+dpkg -i ./build-module-artifacts/nginx-module-headersmore_${NGINX_VERSION}+1.0-1~noble_amd64.deb
 
-echo "==> Building Shibboleth Nginx module for Nginx 1.28.0"
-yes "" | ./build_module.sh -v 1.28.0 https://github.com/nginx-shib/nginx-http-shibboleth.git
+echo "==> Building Shibboleth Nginx module for Nginx ${NGINX_VERSION}"
+yes "" | ./build_module.sh -v ${NGINX_VERSION} https://github.com/nginx-shib/nginx-http-shibboleth.git
 
 echo "==> Installing Shibboleth Nginx module deb package"
-dpkg -i ./build-module-artifacts/nginx-module-shibboleth_1.28.0+1.0-1~noble_amd64.deb
+dpkg -i ./build-module-artifacts/nginx-module-shibboleth_${NGINX_VERSION}+1.0-1~noble_amd64.deb
 
 echo "==> Copying Nginx Shibboleth helper files"
 cp shib_fastcgi_params /etc/nginx/shib_fastcgi_params
