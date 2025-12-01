@@ -61,7 +61,7 @@ cd /tmp
 wget https://raw.githubusercontent.com/nginx/pkg-oss/refs/heads/master/build_module.sh
 chmod a+x build_module.sh
 
-echo "==> Building headers-more module for Nginx 1.28.1"
+echo "==> Building headers-more module for Nginx 1.28.0"
 yes "" | ./build_module.sh -v 1.28.1 https://github.com/openresty/headers-more-nginx-module.git
 
 echo "==> Installing headers-more deb package"
