@@ -59,9 +59,8 @@ apt purge -y 'apache2*' || true
 apt autoremove -y
 
 echo "==> Downloading Nginx module build script"
-cd /tmp
 wget https://raw.githubusercontent.com/nginx/pkg-oss/refs/heads/master/build_module.sh
-chmod a+x build_module.sh
+chmod +x build_module.sh
 
 echo "==> Building headers-more module for Nginx ${NGINX_VERSION}"
 yes "" | ./build_module.sh -v ${NGINX_VERSION} https://github.com/openresty/headers-more-nginx-module.git
