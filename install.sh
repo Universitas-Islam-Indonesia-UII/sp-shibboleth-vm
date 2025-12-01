@@ -39,6 +39,9 @@ done
 echo "✅ All required files are present."
 
 # ====== Begin Installation ======
+echo "==> Change repository"
+sed -i 's|cdn.repo.cloudeka.id/ubuntu/|mirror.nevacloud.com/ubuntu/ubuntu-archive/|' /etc/apt/sources.list.d/ubuntu.sources
+
 echo "==> Installing base packages"
 apt update
 apt install -y curl gnupg2 ca-certificates lsb-release ubuntu-keyring libparse-recdescent-perl
@@ -63,13 +66,17 @@ wget https://raw.githubusercontent.com/nginx/pkg-oss/refs/heads/master/build_mod
 chmod +x build_module.sh
 
 echo "==> Building headers-more module for Nginx ${NGINX_VERSION}"
+set +e
 yes "" | ./build_module.sh -v ${NGINX_VERSION} https://github.com/openresty/headers-more-nginx-module.git
+set -e
 
 echo "==> Installing headers-more deb package"
 dpkg -i ./build-module-artifacts/nginx-module-headersmore_${NGINX_VERSION}+1.0-1~noble_amd64.deb
 
 echo "==> Building Shibboleth Nginx module for Nginx ${NGINX_VERSION}"
+set +e
 yes "" | ./build_module.sh -v ${NGINX_VERSION} https://github.com/nginx-shib/nginx-http-shibboleth.git
+set -e
 
 echo "==> Installing Shibboleth Nginx module deb package"
 dpkg -i ./build-module-artifacts/nginx-module-shibboleth_${NGINX_VERSION}+1.0-1~noble_amd64.deb
