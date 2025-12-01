@@ -25,6 +25,7 @@ REQUIRED_FILES=(
   "shib_fastcgi_params"
   "shibboleth.conf"
   "shibboleth2.xml.template"
+  "index.php"
 )
 
 # ====== Check required files ======
@@ -98,6 +99,7 @@ sed -i '2iload_module modules/ngx_http_shibboleth_module.so;' /etc/nginx/nginx.c
 cat nginx-default.conf > /etc/nginx/conf.d/default.conf
 cp nginx-ssl.conf /etc/nginx/conf.d/ssl.conf
 sed -i "s|HOSTNAME|${HOSTNAME}|" /etc/nginx/conf.d/ssl.conf
+cp index.php /usr/share/nginx/html/index.php
 
 echo "==> Installing Supervisor config for Shibboleth"
 cp shibboleth.conf /etc/supervisor/conf.d/shibboleth.conf
