@@ -20,11 +20,11 @@ fi
 REQUIRED_FILES=(
   "attribute-map.xml"
   "nginx-default.conf"
-  "nginx-ssl.conf"
+  "nginx-ssl.conf.template"
   "shib_clear_headers"
   "shib_fastcgi_params"
   "shibboleth.conf"
-  "shibboleth2.xml"
+  "shibboleth2.xml.template"
 )
 
 # ====== Check required files ======
