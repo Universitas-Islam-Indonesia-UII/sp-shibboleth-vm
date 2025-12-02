@@ -97,7 +97,8 @@ echo "==> Installing Nginx configs"
 sed -i 's/^user[[:space:]]\+nginx;/user www-data;/g' /etc/nginx/nginx.conf
 sed -i '1iload_module modules/ngx_http_headers_more_filter_module.so;' /etc/nginx/nginx.conf
 sed -i '2iload_module modules/ngx_http_shibboleth_module.so;' /etc/nginx/nginx.conf
-cat nginx-default.conf > /etc/nginx/conf.d/default.conf
+cp nginx-default.conf /etc/nginx/conf.d/default.conf
+sed -i "s|HOSTNAME|${HOSTNAME}|g" /etc/nginx/conf.d/default.conf
 cp nginx-ssl.conf /etc/nginx/conf.d/ssl.conf
 sed -i "s|HOSTNAME|${HOSTNAME}|g" /etc/nginx/conf.d/ssl.conf
 cp index.php /usr/share/nginx/html/index.php
@@ -118,12 +119,10 @@ envsubst < shibboleth2.xml.template > /etc/shibboleth/shibboleth2.xml
 cat attribute-map.xml > /etc/shibboleth/attribute-map.xml
 
 echo "==> Reloading services"
-if command -v systemctl >/dev/null 2>&1; then
-  systemctl daemon-reload || true
-  systemctl restart php8.3-fpm || true
-  systemctl restart nginx || true
-  systemctl restart supervisor || true
-  systemctl restart shibd || true
-fi
+systemctl daemon-reload
+systemctl restart php8.3-fpm.service
+systemctl restart nginx.service
+systemctl restart supervisor.service
+systemctl restart shibd.service
 
 echo "==> ✅ Installation complete!"
