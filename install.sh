@@ -41,7 +41,7 @@ echo "✅ All required files are present."
 
 # ====== Begin Installation ======
 echo "==> Change repository"
-sed -i 's|cdn.repo.cloudeka.id/ubuntu/|mirror.nevacloud.com/ubuntu/ubuntu-archive/|' /etc/apt/sources.list.d/ubuntu.sources
+sed -i 's|cdn.repo.cloudeka.id/ubuntu/|mirror.amscloud.co.id/ubuntu/|' /etc/apt/sources.list.d/ubuntu.sources
 
 echo "==> Installing base packages"
 apt update
