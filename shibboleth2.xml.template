@@ -4,14 +4,15 @@
     <RequestMap>
       <Host name="${HOSTNAME}"
         authType="shibboleth"
-        requireSession="true">
+        requireSession="true"
+        redirectToSSL="443">
        </Host>
     </RequestMap>
   </RequestMapper>
-  <ApplicationDefaults entityID="http://${HOSTNAME}/shibboleth" REMOTE_USER="eppn subject-id pairwise-id persistent-id"
+  <ApplicationDefaults entityID="https://${HOSTNAME}/shibboleth" REMOTE_USER="eppn subject-id pairwise-id persistent-id"
     cipherSuites="DEFAULT:!EXP:!LOW:!aNULL:!eNULL:!DES:!IDEA:!SEED:!RC4:!3DES:!kRSA:!SSLv2:!SSLv3:!TLSv1:!TLSv1.1">
-    <Sessions lifetime="28800" timeout="3600" relayState="ss:mem" checkAddress="false" handlerSSL="false" cookieProps="http" redirectLimit="exact">
-      <SSO entityID="http://${IDP_HOSTNAME}/idp/shibboleth" discoveryProtocol="SAMLDS" discoveryURL="http://ds.example.org/DS/WAYF"> SAML2 </SSO>
+    <Sessions lifetime="28800" timeout="3600" relayState="ss:mem" checkAddress="false" handlerSSL="true" cookieProps="https" redirectLimit="exact">
+      <SSO entityID="https://${IDP_HOSTNAME}/idp/shibboleth" discoveryProtocol="SAMLDS" discoveryURL="https://ds.example.org/DS/WAYF"> SAML2 </SSO>
       <Logout>SAML2 Local</Logout>
       <LogoutInitiator type="Admin" Location="/Logout/Admin" acl="127.0.0.1 ::1" />
       <Handler type="MetadataGenerator" Location="/Metadata" signing="true"/>
