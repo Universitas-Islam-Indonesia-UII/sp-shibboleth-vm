@@ -79,7 +79,12 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 </head>
 <body>
     <h2>Halaman Login</h2>
-
+    <div>List User
+    <ul style="margin-top:0;margin-left:-20px">
+        <li>satu : password1</li>
+        <li>dua : password2</li>
+    </ul>
+    </div>
     <?php if ($error): ?>
         <p style="color:red;"><?= $error ?></p>
     <?php endif; ?>

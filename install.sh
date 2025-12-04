@@ -25,6 +25,7 @@ REQUIRED_FILES=(
   "shibboleth.conf"
   "shibboleth2.xml.template"
   "index.php"
+  "logout.php"
 )
 
 # ====== Check required files ======
@@ -99,6 +100,7 @@ sed -i '2iload_module modules/ngx_http_shibboleth_module.so;' /etc/nginx/nginx.c
 cp nginx-default.conf /etc/nginx/conf.d/default.conf
 sed -i "s|HOSTNAME|${HOSTNAME}|g" /etc/nginx/conf.d/default.conf
 cp index.php /usr/share/nginx/html/index.php
+cp logout.php /usr/share/nginx/html/logout.php
 
 echo "==> Installing Supervisor config for Shibboleth"
 cp shibboleth.conf /etc/supervisor/conf.d/shibboleth.conf
