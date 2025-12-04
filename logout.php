@@ -6,6 +6,6 @@ session_destroy();
 //header("Location: Shibboleth.sso/Logout");
 
 //--- Logout Manual ---//
-header("Location: login.php");
+header("Location: index.php");
 exit();
 ?>
