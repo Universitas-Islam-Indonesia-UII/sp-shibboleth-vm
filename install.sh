@@ -119,9 +119,6 @@ cat attribute-map.xml > /etc/shibboleth/attribute-map.xml
 
 echo "==> Reloading services"
 systemctl daemon-reload
-systemctl restart php8.3-fpm.service
-systemctl restart nginx.service
-systemctl restart supervisor.service
-systemctl restart shibd.service
+systemctl restart php8.3-fpm.service nginx.service supervisor.service shibd.service
 
 echo "==> ✅ Installation complete!"

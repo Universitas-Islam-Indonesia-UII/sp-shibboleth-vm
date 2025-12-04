@@ -4,9 +4,9 @@ session_start();
 //--- Login Shibboleth ---//
 //echo'<pre>';print_r($_SERVER);exit;
 //if (isset($_SERVER['Shib-uid'])) {
-//    $_SESSION['userid'] = $_SERVER['Shib-uid'];
+//    $_SESSION['username'] = $_SERVER['Shib-uid'];
 //    $_SESSION['email'] = $_SERVER['Shib-mail'];
-//    $_SESSION['username'] = $_SERVER['Shib-displayname'];
+//    $_SESSION['nama'] = $_SERVER['Shib-displayname'];
 
 // Jika sudah login, langsung ke halaman dashboard
 if (isset($_SESSION['username'])) {
@@ -20,7 +20,7 @@ if (isset($_SESSION['username'])) {
 
    <h2>Selamat datang, $_SESSION[nama]</h2>
    <p>Email: $_SESSION[email]</p>
-   <p>User ID: $_SESSION[username]</p>
+   <p>Username: $_SESSION[username]</p>
 
    <a href='logout.php'>Logout</a>
 
